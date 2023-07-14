@@ -18,9 +18,9 @@ var (
 
 func init() {
 	var err error
-	Cfg, err = ini.Load("./conf/app.ini")
+	Cfg, err = ini.Load("E:\\codes\\gocode\\Backend-Go\\go-gin-example\\conf\\app.ini")
 	if err != nil {
-		log.Println("Fail to parse 'conf/app.ini': %v", err)
+		log.Printf("Fail to parse 'conf/app.ini': %v\n", err)
 	}
 	LoadBase()
 	LoadServer()
@@ -29,12 +29,14 @@ func init() {
 }
 
 func LoadBase() {
+	// 读取配置文件（顶级）
 	RunMode = Cfg.Section("").Key("RUN_MODE").MustString("debug")
 }
 func LoadServer() {
+	// 读取配置文件（次级）
 	section, err := Cfg.GetSection("app")
 	if err != nil {
-		log.Println("Fail to get section 'server': %v", err)
+		log.Printf("Fail to get section 'server': %v\n", err)
 	}
 
 	HTTPPort = section.Key("HTTP_PORT").MustInt(8000)
@@ -45,7 +47,7 @@ func LoadServer() {
 func LoadApp() {
 	section, err := Cfg.GetSection("app")
 	if err != nil {
-		log.Println("Fail to get section 'app': %v", err)
+		log.Printf("Fail to get section 'app': %v\n", err)
 	}
 
 	JwtSecret = section.Key("JWT_SECRET").MustString("yzy")
