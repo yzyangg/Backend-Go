@@ -1,6 +1,10 @@
 package routers
 
-import "github.com/gin-gonic/gin"
+import (
+	"Backend-Go/go-gin-example/pkg/setting"
+	v1 "Backend-Go/go-gin-example/routers/v1"
+	"github.com/gin-gonic/gin"
+)
 
 func InitRouter() *gin.Engine {
 	// 新的路由实例
@@ -13,12 +17,18 @@ func InitRouter() *gin.Engine {
 	r.Use(gin.Recovery())
 
 	// 设置gin框架的运行模式
-	gin.SetMode("debug")
+	gin.SetMode(setting.RunMode)
 
-	r.GET("/get", func(c *gin.Context) {
-		c.JSON(200, gin.H{
-			"message": "Hello, World!",
-		})
-	})
+	api := r.Group("/api/v1")
+	{
+		// 获取标签列表
+		api.GET("/tags", v1.GetTags)
+		// 新增标签
+		api.POST("/tags", v1.AddTag)
+		// 修改标签
+		api.PUT("/tags/:id", v1.EditTag)
+		// 删除标签
+		api.DELETE("/tags/:id", v1.DeleteTag)
+	}
 	return r
 }

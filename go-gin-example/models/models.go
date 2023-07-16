@@ -4,6 +4,7 @@ import (
 	"Backend-Go/go-gin-example/pkg/setting"
 	"fmt"
 	"github.com/jinzhu/gorm"
+	_ "github.com/jinzhu/gorm/dialects/mysql"
 	//"gorm.io/gorm"
 	"log"
 )
@@ -18,6 +19,7 @@ type Model struct {
 
 // 初始化数据库
 func init() {
+
 	var (
 		err                                               error
 		dbType, dbName, user, password, host, tablePrefix string
@@ -55,4 +57,6 @@ func init() {
 	db.DB().SetMaxIdleConns(10)
 	// 设置最大打开连接数
 	db.DB().SetMaxOpenConns(100)
+	// 设置打印sql语句
+	db.LogMode(true)
 }

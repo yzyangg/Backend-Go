@@ -29,6 +29,7 @@ func initDB() {
 		log.Printf("open mysql failed, err:%v\n", err)
 	}
 	log.Println("DB connect success")
+	// 自动迁移
 	db.AutoMigrate(&student{})
 
 }
