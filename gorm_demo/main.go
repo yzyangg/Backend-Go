@@ -30,6 +30,9 @@ func initDB() {
 	}
 	log.Println("DB connect success")
 	// 自动迁移
+	//这样，通过 db.AutoMigrate() 方法，你可以保持数据库表的结构与定义的 student 结构体模型同步
+	//无需手动创建或修改数据库表
+	//这对于在开发过程中更改模型结构或确保表结构与代码定义一致非常有用。
 	db.AutoMigrate(&student{})
 
 }

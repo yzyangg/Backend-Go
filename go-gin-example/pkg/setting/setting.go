@@ -16,6 +16,7 @@ var (
 	JwtSecret    string
 )
 
+// 读取配置文件
 func init() {
 	var err error
 	Cfg, err = ini.Load("E:\\codes\\gocode\\Backend-Go\\go-gin-example\\conf\\app.ini")
